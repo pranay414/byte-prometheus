@@ -1,0 +1,20 @@
+{
+  "name": "prometheus",
+  "version": "1.0.0",
+  "description": "Byte hackathon project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Pranay Ankit Tiru",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.3.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}
