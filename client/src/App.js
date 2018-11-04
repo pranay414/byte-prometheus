@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { ReactMic } from 'react-mic';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid, Menu } from 'semantic-ui-react';
+
+import './styles.css';
+
+const Header = () => {
+  return (
+    <Menu borderless size='massive' inverted>
+      <Menu.Item>
+        Prometheus | Voice Recorder
+        </Menu.Item>
+    </Menu>
+  );
+}
 
 export default class App extends Component {
   constructor(props) {
@@ -35,20 +47,31 @@ export default class App extends Component {
     console.log('recordedBlob is: ', recordedBlob);
   }
 
+  saveToDB = () => {
+    
+  }
+
   render() {
     console.log(this.state.blob);
     return (
       <div>
-        <ReactMic
-          record={this.state.record}
-          className="sound-wave"
-          onStop={this.onStop}
-          onData={this.onData}
-          strokeColor="#000000"
-          backgroundColor="#FF4081" />
-        <br />
-        <Button onClick={this.startRecording} content='Start'/>
-        <Button onClick={this.stopRecording} content='Stop'/>
+        <Header />
+        <Grid centered>
+          <Grid.Row>
+            <ReactMic
+              record={this.state.record}
+              className="sound-wave"
+              onStop={this.onStop}
+              onData={this.onData}
+              strokeColor="#000000"
+              backgroundColor="#FF4081" />
+          </Grid.Row>
+          <Grid.Row>
+            <Button onClick={this.startRecording} content='Start' />
+            <Button onClick={this.stopRecording} content='Stop' style={{ marginLeft: '1em', marginRight: '1em' }} />
+            <Button onClick={this.saveToDB} content='Save' />
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
