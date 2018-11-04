@@ -5,7 +5,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      record: false
+      record: false,
+      blob: null,
     }
 
   }
@@ -27,10 +28,14 @@ export default class App extends Component {
   }
 
   onStop(recordedBlob) {
+    this.setState({
+      blob: recordedBlob
+    });
     console.log('recordedBlob is: ', recordedBlob);
   }
 
   render() {
+    console.log(this.state.blob);
     return (
       <div>
         <ReactMic
