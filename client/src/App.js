@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ReactMic } from 'react-mic';
 import { Button, Grid, Menu } from 'semantic-ui-react';
-import axios from 'axios';
+import axios, { post } from 'axios';
 
 import './styles.css';
 
@@ -20,9 +20,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       record: false,
-      blob: null,
+      audio: null,
     }
-
   }
 
   startRecording = () => {
@@ -43,23 +42,28 @@ export default class App extends Component {
 
   onStop = (recordedBlob) => {
     this.setState({
-      blob: recordedBlob
+      audio: recordedBlob
     });
     console.log('recordedBlob is: ', recordedBlob);
   }
 
   saveToDB = () => {
+    const endpoint = '/api/save';
+    var formData = new FormData();
+    formData.append('audio', this.state.audio.blob);
     console.log('Sending POST request to server.');
-    axios.post('/api/save', {
-      firstName: 'Pranay',
-      lastName: 'Tiru'
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { console.log(err) });
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    post(endpoint, formData, config)
+    .then(() => console.log('Sent successfully.'))
+    .catch((err) => console.log(err));
   }
 
   render() {
-    console.log(this.state.blob);
+    console.log(this.state.audio);
     return (
       <div>
         <Header />

@@ -1,38 +1,21 @@
 const express = require('express');
+const multer = require('multer');
+var upload = multer();
 const app = express();
-//const db = require('./db');
-var mongoose = require('mongoose');
-var gridfs = require('gridfs-stream');
-var fs = require('fs');
+const db = require('./db');
+const Audio = require('./models/Audio');
 
-mongoose.connect('mongodb://prometheus:Prometheus123@ds021034.mlab.com:21034/prometheus', { useNewUrlParser: true })
-    .then(() => { console.log('Connected to DB successfully.') })
-    .catch((err) => { console.log(err) });
-mongoose.Promise = global.Promise;
-gridfs.mongo = mongoose.mongo;
-
-var connection = mongoose.connection;
-connection.once('open', () => {
-
-    // Upload a file from loca file-system to MongoDB
-    app.get('/api/file/upload', (req, res) => {
-
-        var filename = req.query.filename;
-
-        var writestream = gfs.createWriteStream({ filename: filename });
-        fs.createReadStream(__dirname + "/uploads/" + filename).pipe(writestream);
-        writestream.on('close', (file) => {
-            res.send('Stored File: ' + file.filename);
-        });
-    });
-
-    // Demo POST request
-    app.post('/api/save', (req, res) => {
-        console.log('Endpoint hit!');
-        console.log(req.params);
-        res.send('Hello');
+app.post('/api/save', upload.any(), (req, res) => {
+    const newAudio = new Audio();
+    newAudio.audio = req.files[0].buffer;
+    newAudio.save((err, audio) => {
+        if (err) {
+            return res.status(500).send('Error: saving audio.');
+        }
+        return res.status(200).send('Successfully save audio.');
     });
 });
+
 
 
 module.exports = app;
