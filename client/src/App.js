@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ReactMic } from 'react-mic';
+import { Button } from 'semantic-ui-react';
 
 export default class App extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class App extends Component {
     console.log('chunk of real-time data is: ', recordedBlob);
   }
 
-  onStop(recordedBlob) {
+  onStop = (recordedBlob) => {
     this.setState({
       blob: recordedBlob
     });
@@ -45,9 +46,9 @@ export default class App extends Component {
           onData={this.onData}
           strokeColor="#000000"
           backgroundColor="#FF4081" />
-        <br/>
-        <button onClick={this.startRecording} type="button">Start</button>
-        <button onClick={this.stopRecording} type="button">Stop</button>
+        <br />
+        <Button onClick={this.startRecording} content='Start'/>
+        <Button onClick={this.stopRecording} content='Stop'/>
       </div>
     );
   }
