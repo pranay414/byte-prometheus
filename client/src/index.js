@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import setupProxy from './setupProxy';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

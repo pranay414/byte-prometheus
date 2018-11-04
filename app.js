@@ -25,6 +25,13 @@ connection.once('open', () => {
             res.send('Stored File: ' + file.filename);
         });
     });
+
+    // Demo POST request
+    app.post('/api/save', (req, res) => {
+        console.log('Endpoint hit!');
+        console.log(req.params);
+        res.send('Hello');
+    });
 });
 
 

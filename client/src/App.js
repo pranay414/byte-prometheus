@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ReactMic } from 'react-mic';
 import { Button, Grid, Menu } from 'semantic-ui-react';
+import axios from 'axios';
 
 import './styles.css';
 
@@ -48,7 +49,13 @@ export default class App extends Component {
   }
 
   saveToDB = () => {
-    
+    console.log('Sending POST request to server.');
+    axios.post('/api/save', {
+      firstName: 'Pranay',
+      lastName: 'Tiru'
+    })
+      .then((res) => { console.log(res) })
+      .catch((err) => { console.log(err) });
   }
 
   render() {
