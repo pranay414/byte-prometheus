@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const keys = require('./config/keys');
 
-mongoose.connect('mongodb://prometheus:Prometheus123@ds021034.mlab.com:21034/prometheus', { useNewUrlParser: true })
+mongoose.connect(keys.MONGO_URI, { useNewUrlParser: true })
     .then(() => { console.log('Connected to MongoDB successfully.') })
     .catch((err) => console.log(err));
 
